@@ -1,5 +1,7 @@
 package com.eestevez.starwars.controller;
 
+import com.eestevez.starwars.dto.PageInfo;
+import com.eestevez.starwars.dto.PeopleDto;
 import com.eestevez.starwars.service.PeopleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,17 @@ public class PeopleController {
     }
 
     @GetMapping("/people")
-    public String getPeople(@RequestParam(name = "sort", required = false) String sort, Model model){
-        model.addAttribute("people", peopleService.getPeople(1));
+    public String getPeople(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sort", required = false) String sort,
+            Model model){
+
+        PeopleDto peopleDto = peopleService.getPeoplePage(page);
+        int totalPages = (int) Math.ceil((double) peopleDto.getCount() / 10);
+
+        model.addAttribute("people", peopleDto);
+        model.addAttribute("pageInfo", new PageInfo(page, totalPages));
+        model.addAttribute("sort", sort);
         return "people";
     }
 }

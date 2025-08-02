@@ -8,15 +8,20 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class PeopleService {
     private final RestTemplate restTemplate;
-    private final String peopleUrl;
+    private final String baseSwapiUrl;
 
-    public PeopleService(RestTemplate restTemplate, @Value("${swapi.people.url}") String peopleUrl) {
+    public PeopleService(RestTemplate restTemplate, @Value("${swapi.base.url}") String baseSwapiUrl) {
         this.restTemplate = restTemplate;
-        this.peopleUrl = peopleUrl;
+        this.baseSwapiUrl = baseSwapiUrl;
     }
 
-    public PeopleDto getPeople(int page) {
-        String url = peopleUrl + "?page=" + page;
+    public PeopleDto getPeople() {
+        String url = String.format("%s/people", baseSwapiUrl);
+        return restTemplate.getForObject(url, PeopleDto.class);
+    }
+
+    public PeopleDto getPeoplePage(int page) {
+        String url = String.format("%s/people/?page=%d", baseSwapiUrl, page);
         return restTemplate.getForObject(url, PeopleDto.class);
     }
 }

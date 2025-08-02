@@ -15,7 +15,7 @@ public class PeopleServiceIntegrationTest {
 
     @Test
     void testGetPeopleFirstPage() {
-        PeopleDto personDto = personService.getPeople(1);
+        PeopleDto personDto = personService.getPeople();
 
         assertNotNull(personDto);
         assertTrue(personDto.getResults().size() > 0, "Should return at least one person");
