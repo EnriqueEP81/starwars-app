@@ -7,8 +7,12 @@
 <h1>Star Wars People</h1>
 <table border="1">
     <tr>
-        <th><a href="?sort=name">Name</a></th>
-        <th><a href="?sort=created">Created</a></th>
+        <th>
+            <a th:href="@{/people(sort='name', page=${pageInfo.currentPage}, asc=${sort == 'name' ? !asc : true})}">Name</a>
+        </th>
+        <th>
+            <a th:href="@{/people(sort='created', page=${pageInfo.currentPage}, asc=${sort == 'created' ? !asc : true})}">Created</a>
+        </th>
         <th>Height</th>
         <th>Mass</th>
         <th>Hair Color</th>
