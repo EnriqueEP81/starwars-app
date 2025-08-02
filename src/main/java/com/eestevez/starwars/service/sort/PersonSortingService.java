@@ -1,7 +1,6 @@
 package com.eestevez.starwars.service.sort;
 
 import com.eestevez.starwars.model.Person;
-import com.eestevez.starwars.service.PersonSorter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

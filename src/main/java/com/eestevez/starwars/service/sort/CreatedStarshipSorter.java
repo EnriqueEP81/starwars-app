@@ -1,14 +1,14 @@
 package com.eestevez.starwars.service.sort;
 
-import com.eestevez.starwars.model.Person;
+import com.eestevez.starwars.model.Starship;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class CreatedPersonSorter implements PersonSorter {
+public class CreatedStarshipSorter implements StarshipSorter {
     @Override
-    public List<Person> sort(List<Person> people, boolean ascending) {
-        Comparator<Person> comparator = Comparator.comparing(Person::created);
+    public List<Starship> sort(List<Starship> people, boolean ascending) {
+        Comparator<Starship> comparator = Comparator.comparing(Starship::created);
         if (!ascending) {
             comparator = comparator.reversed();
         }

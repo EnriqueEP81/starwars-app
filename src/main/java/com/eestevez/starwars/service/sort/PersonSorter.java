@@ -1,4 +1,4 @@
-package com.eestevez.starwars.service;
+package com.eestevez.starwars.service.sort;
 
 import com.eestevez.starwars.model.Person;
 

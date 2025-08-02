@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Star Wars Starships</title>
+</head>
+<body>
+<h1>Star Wars Starships</h1>
+<table border="1">
+    <tr>
+        <th>
+            <a th:href="@{/starships(sort='name', page=${pageInfo.currentPage}, asc=${sort == 'name' ? !asc : true})}">Name</a>
+        </th>
+        <th>
+            <a th:href="@{/starships(sort='created', page=${pageInfo.currentPage}, asc=${sort == 'created' ? !asc : true})}">Created</a>
+        </th>
+        <th>Model</th>
+        <th>Mass</th>
+        <th>Lenght</th>
+        <th>Speed</th>
+        <th>Crew</th>
+        <th>Passengers</th>
+        <th>Type</th>
+        <th>Edited</th>
+    </tr>
+    <tr th:each="starship : ${starships.results}">
+        <td th:text="${starship.name}"></td>
+        <td th:text="${starship.created}"></td>
+        <td th:text="${starship.model}"></td>
+        <td th:text="${starship.length}"></td>
+        <td th:text="${starship.speed}"></td>
+        <td th:text="${starship.crew}"></td>
+        <td th:text="${starship.passengers}"></td>
+        <td th:text="${starship.type}"></td>
+        <td th:text="${starship.edited}"></td>
+    </tr>
+</table>
+<div class="pagination">
+    <form method="get">
+        <input type="hidden" name="page" th:value="${pageInfo.currentPage - 1}" />
+        <input type="hidden" name="sort" th:value="${sort}" />
+        <button type="submit" th:disabled="${pageInfo.currentPage == 1}">Previous</button>
+    </form>
+
+    <span th:text="'Page ' + ${pageInfo.currentPage} + ' of ' + ${pageInfo.totalPages}"></span>
+
+    <form method="get">
+        <input type="hidden" name="page" th:value="${pageInfo.currentPage + 1}" />
+        <input type="hidden" name="sort" th:value="${sort}" />
+        <button type="submit" th:disabled="${pageInfo.currentPage == pageInfo.totalPages}">Next</button>
+    </form>
+</div>
+</body>
+</html>

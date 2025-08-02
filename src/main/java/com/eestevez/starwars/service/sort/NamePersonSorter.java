@@ -1,7 +1,6 @@
 package com.eestevez.starwars.service.sort;
 
 import com.eestevez.starwars.model.Person;
-import com.eestevez.starwars.service.PersonSorter;
 
 import java.util.Comparator;
 import java.util.List;
