@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  starwars-app:
+    build: .
+    ports:
+      - "6969:8080"

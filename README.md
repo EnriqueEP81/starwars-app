@@ -8,10 +8,20 @@ Currently, it shows **People** and **Starships** in a basic web interface.
 - Spring Boot
 - Gradle
 - Thymeleaf
-- MyLibs
+- Docker & Docker Compose
 
 ## Getting Started
 
 ### Run the project
 ```bash
 ./gradlew bootRun
+```
+
+### Run with Docker
+
+Build and start the container:
+
+```bash
+docker-compose up --build
+```
+The app will be available at http://localhost:6969.
