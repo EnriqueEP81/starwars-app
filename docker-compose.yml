@@ -3,5 +3,6 @@ version: "3.9"
 services:
   starwars-app:
     build: .
+    image: starwars-app:latest
     ports:
       - "6969:8080"

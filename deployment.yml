@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starwars-app
+  labels:
+    app: starwars
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: starwars
+  template:
+    metadata:
+      labels:
+        app: starwars
+    spec:
+      containers:
+        - name: starwars-container
+          image: starwars-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6969
