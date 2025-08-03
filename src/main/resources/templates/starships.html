@@ -4,17 +4,33 @@
     <title>Star Wars Starships</title>
 </head>
 <body>
+<a href="/" style="text-decoration:none; padding:8px 12px; background:#007bff; color:white; border-radius:5px; margin-bottom:15px; display:inline-block;">
+    🏠 Back to Home
+</a>
 <h1>Star Wars Starships</h1>
+<form method="get" action="/starships">
+    <input type="hidden" name="search" value="true"/>
+
+
+    <label for="sortField">Sort by:</label>
+    <select name="sort" id="sortField">
+        <option value="name" th:selected="${sort == 'name'}">Name</option>
+        <option value="created" th:selected="${sort == 'created'}">Created</option>
+    </select>
+
+    <label for="sortDir">Order:</label>
+    <select name="asc" id="sortDir">
+        <option value="true" th:selected="${asc}">Ascending</option>
+        <option value="false" th:selected="${!asc}">Descending</option>
+    </select>
+
+    <button type="submit">Search</button>
+</form>
 <table border="1">
     <tr>
-        <th>
-            <a th:href="@{/starships(sort='name', page=${pageInfo.currentPage}, asc=${sort == 'name' ? !asc : true})}">Name</a>
-        </th>
-        <th>
-            <a th:href="@{/starships(sort='created', page=${pageInfo.currentPage}, asc=${sort == 'created' ? !asc : true})}">Created</a>
-        </th>
+        <th>Name</th>
+        <th>Created</th>
         <th>Model</th>
-        <th>Mass</th>
         <th>Lenght</th>
         <th>Speed</th>
         <th>Crew</th>
@@ -38,6 +54,8 @@
     <form method="get">
         <input type="hidden" name="page" th:value="${pageInfo.currentPage - 1}" />
         <input type="hidden" name="sort" th:value="${sort}" />
+        <input type="hidden" name="asc" th:value="${asc}" />
+        <input type="hidden" name="search" th:value="${search}" />
         <button type="submit" th:disabled="${pageInfo.currentPage == 1}">Previous</button>
     </form>
 
@@ -46,6 +64,8 @@
     <form method="get">
         <input type="hidden" name="page" th:value="${pageInfo.currentPage + 1}" />
         <input type="hidden" name="sort" th:value="${sort}" />
+        <input type="hidden" name="asc" th:value="${asc}" />
+        <input type="hidden" name="search" th:value="${search}" />
         <button type="submit" th:disabled="${pageInfo.currentPage == pageInfo.totalPages}">Next</button>
     </form>
 </div>

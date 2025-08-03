@@ -16,11 +16,9 @@ import java.util.List;
 public class StarshipController {
 
     private final StarshipService starshipService;
-    private final StarshipSortingService starshipSortingService;
 
     public StarshipController(StarshipService starshipService, StarshipSortingService starshipSortingService){
         this.starshipService = starshipService;
-        this.starshipSortingService = starshipSortingService;
     }
 
     @GetMapping("/starships")
@@ -28,19 +26,16 @@ public class StarshipController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "sort", required = false) String sort,
             @RequestParam(defaultValue = "true") boolean asc,
+            @RequestParam(value = "search", defaultValue = "false") boolean search,
             Model model){
 
-        StarshipDto starshipDto = starshipService.getStarShipsPage(page);
-        if (sort != null) {
-            List<Starship> sorted = starshipSortingService.sort(starshipDto.getResults(), sort, asc);
-            starshipDto.setResults(sorted);
-        }
-        int totalPages = (int) Math.ceil((double) starshipDto.getCount() / 10);
+        StarshipDto starshipDto = starshipService.getStarships(page,sort,asc, search);
 
         model.addAttribute("starships", starshipDto);
-        model.addAttribute("pageInfo", new PageInfo(page, totalPages));
+        model.addAttribute("pageInfo", new PageInfo(page, starshipDto.getTotalPages()));
         model.addAttribute("sort", sort);
         model.addAttribute("asc", asc);
+        model.addAttribute("search", search);
         return "starships";
     }
 }

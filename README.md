@@ -10,6 +10,20 @@ Currently, it shows **People** and **Starships** in a basic web interface.
 - Thymeleaf
 - Docker & Docker Compose
 
+## Implementation Details
+The application demonstrates two different approaches for fetching and displaying data:
+
+- **People Page**  
+  Uses a simple pagination approach, fetching data **page by page** directly from SWAPI.  
+  Sorting is applied only to the currently displayed page.
+
+- **Starships Page**  
+  Implements a more advanced logic:
+    - When the user first loads the page or performs a search, **all starships are fetched** from SWAPI and stored in an **in-memory cache**.
+    - Sorting is applied globally to the entire dataset.
+    - Pagination then works on the cached dataset, avoiding repeated calls to SWAPI.
+    - This makes the navigation between pages much faster after the first load.
+
 ## Getting Started
 
 ### Run the project
@@ -48,5 +62,4 @@ kubectl get services
 minikube ip
 
 # Access the app at: http://<minikube_ip>:<nodePort>
-
-- ```
+ ```

@@ -10,6 +10,8 @@ public class StarshipDto {
     private String previous;
     private List<Starship> results;
 
+    private int totalPages;
+
     public int getCount() {
         return count;
     }
@@ -40,5 +42,13 @@ public class StarshipDto {
 
     public void setResults(List<Starship> results) {
         this.results = results;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
     }
 }
