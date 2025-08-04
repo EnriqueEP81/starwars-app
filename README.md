@@ -31,6 +31,7 @@ The application demonstrates two different approaches for fetching and displayin
 ```bash
 ./gradlew bootRun
 ```
+The app will be available at http://localhost:8080.
 
 ### Run with Docker
 
@@ -39,7 +40,7 @@ Build and start the container:
 ```bash
 docker-compose up --build
 ```
-The app will be available at http://localhost:6969.
+The app will be available on port 6969 (http://localhost:6969) , as configured in docker-compose.yml
 
 ### Run with Kubernetes
 You can also deploy the application on a local Kubernetes cluster using Minikube.
