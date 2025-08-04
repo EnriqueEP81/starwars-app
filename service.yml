@@ -8,6 +8,6 @@ spec:
     app: starwars
   ports:
     - protocol: TCP
-      port: 6969        # Puerto dentro del cluster
-      targetPort: 6969  # Puerto del contenedor
-      nodePort: 30080   # Puerto que exponemos en la máquina local
+      port: 6969
+      targetPort: 8080
+      nodePort: 30080

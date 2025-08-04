@@ -19,4 +19,4 @@ spec:
           image: starwars-app:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 6969
+            - containerPort: 8080
