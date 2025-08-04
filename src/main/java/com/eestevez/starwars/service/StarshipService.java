@@ -30,21 +30,22 @@ public class StarshipService {
         return restTemplate.getForObject(url, StarshipDto.class);
     }
 
-    public StarshipDto getStarships(int page, String sort, boolean asc, boolean search) {
+    public StarshipDto getStarships(int page, String sort, boolean asc, boolean search, String searchBy, String filter) {
         if (starshipCache.isEmpty() || search) {
             starshipCache = getAllStarships();
-            if (sort != null) {
-                starshipCache = starshipSortingService.sort(starshipCache, sort, asc);
-            }
+        }
+        List<Starship> filtered = filterStarships(starshipCache, searchBy, filter);
+        if (sort != null) {
+            filtered  = starshipSortingService.sort(filtered, sort, asc);
         }
         int pageSize = 10;
-        int totalPages = (int) Math.ceil((double) starshipCache.size() / pageSize);
+        int totalPages = (int) Math.ceil((double) filtered.size() / pageSize);
         int fromIndex = (page - 1) * pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, starshipCache.size());
-        List<Starship> paginated = starshipCache.subList(fromIndex, toIndex);
+        int toIndex = Math.min(fromIndex + pageSize, filtered .size());
+        List<Starship> paginated = filtered .subList(fromIndex, toIndex);
 
         StarshipDto dto = new StarshipDto();
-        dto.setCount(starshipCache.size());
+        dto.setCount(filtered .size());
         dto.setResults(paginated);
         dto.setTotalPages(totalPages);
         return dto;
@@ -60,5 +61,26 @@ public class StarshipService {
             url = dto.getNext();
         } while (url != null);
         return result;
+    }
+
+    private List<Starship> filterStarships(List<Starship> starships, String searchBy, String filter) {
+        if (filter == null || filter.isBlank()) {
+            return starships;
+        }
+        String filterLower = filter.toLowerCase();
+
+        return starships.stream()
+                .filter(s -> {
+                    if ("model".equalsIgnoreCase(searchBy)) {
+                        return s.model().toLowerCase().contains(filterLower);
+                    } else {
+                        return s.name().toLowerCase().contains(filterLower);
+                    }
+                })
+                .toList();
+    }
+
+    public void setStarshipCache(List<Starship> starshipCache) {
+        this.starshipCache = starshipCache;
     }
 }

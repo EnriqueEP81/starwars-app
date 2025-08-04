@@ -27,15 +27,20 @@ public class StarshipController {
             @RequestParam(value = "sort", required = false) String sort,
             @RequestParam(defaultValue = "true") boolean asc,
             @RequestParam(value = "search", defaultValue = "false") boolean search,
+            @RequestParam(value = "filter", required = false) String filter,
+            @RequestParam(value = "searchBy", required = false, defaultValue = "name") String searchBy,
             Model model){
 
-        StarshipDto starshipDto = starshipService.getStarships(page,sort,asc, search);
+        StarshipDto starshipDto = starshipService.getStarships(page,sort,asc,search,searchBy,filter);
 
         model.addAttribute("starships", starshipDto);
         model.addAttribute("pageInfo", new PageInfo(page, starshipDto.getTotalPages()));
         model.addAttribute("sort", sort);
         model.addAttribute("asc", asc);
         model.addAttribute("search", search);
+        model.addAttribute("filter", filter);
+        model.addAttribute("filter", filter);
+        model.addAttribute("searchBy", searchBy);
         return "starships";
     }
 }
