@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonSortingService {
-    private final Map<String, PersonSorter> sorters;
+    private final Map<String, Sorter<Person>> sorters;
 
-    public PersonSortingService(List<PersonSorter> sorterList) {
+    public PersonSortingService(List<Sorter<Person>> sorterList) {
         this.sorters = sorterList.stream()
-                .collect(Collectors.toMap(PersonSorter::getField, s -> s));
+                .collect(Collectors.toMap(Sorter::getField, s -> s));
     }
 
     public List<Person> sort(List<Person> people, String field, boolean ascending) {
-        PersonSorter sorter = sorters.get(field);
+        Sorter<Person> sorter = sorters.get(field);
         if (sorter != null) {
             return sorter.sort(people, ascending);
         }

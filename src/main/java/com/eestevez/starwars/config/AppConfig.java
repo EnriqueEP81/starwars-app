@@ -1,10 +1,9 @@
 package com.eestevez.starwars.config;
 
 
-import com.eestevez.starwars.service.sort.CreatedPersonSorter;
-import com.eestevez.starwars.service.sort.CreatedStarshipSorter;
-import com.eestevez.starwars.service.sort.NamePersonSorter;
-import com.eestevez.starwars.service.sort.NameStarshipSorter;
+import com.eestevez.starwars.model.Person;
+import com.eestevez.starwars.model.Starship;
+import com.eestevez.starwars.service.sort.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -17,14 +16,22 @@ public class AppConfig {
     }
 
     @Bean
-    public CreatedPersonSorter createdPersonSorter() {return new CreatedPersonSorter();}
+    public Sorter<Person> createdPersonSorter() {
+        return new GenericSorter<>(Person::created, "created");
+    }
 
     @Bean
-    public NamePersonSorter namePersonSorter() {return new NamePersonSorter();}
+    public Sorter<Person> namePersonSorter() {
+        return new GenericSorter<>(Person::name, "name");
+    }
 
     @Bean
-    public CreatedStarshipSorter createsStartShipSorter() {return new CreatedStarshipSorter();}
+    public Sorter<Starship> createdStarshipSorter() {
+        return new GenericSorter<>(Starship::created, "created");
+    }
 
     @Bean
-    public NameStarshipSorter nameStartshipSorter() {return new NameStarshipSorter();}
+    public Sorter<Starship> nameStarshipSorter() {
+        return new GenericSorter<>(Starship::name, "name");
+    }
 }

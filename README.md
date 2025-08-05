@@ -23,7 +23,12 @@ The application demonstrates two different approaches for fetching and displayin
     - When the user first loads the page or performs a search/filter, **all starships are fetched** from SWAPI and stored in an **in-memory cache**.
     - The user can perform global sorting on the entire dataset by fields like Name or Created. 
     - Additionally, the user can filter (search) starships by Name or Model via a search box and a dropdown selector. This filtering is applied globally to the cached data. 
-    - Pagination is done on the filtered and sorted cached list, avoiding repeated calls to SWAPI.
+    - Pagination is done on the filtered and sorted cached list, avoiding repeated calls to SWAPI.  
+    - 
+- **Sorting Mechanism and Open/Closed Principle**
+  The sorting logic for both People and Starships is designed following the Open/Closed Principle.
+  This means that sorting by different fields (like Name or Created) is implemented using a generic sorting interface, where each sorting strategy is a separate class (or bean).
+  If a new sorting criterion is needed, it can be added easily without modifying existing code — just by adding a new sorter implementation and registering it.
 
 ## Getting Started
 
